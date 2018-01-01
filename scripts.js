@@ -1,23 +1,21 @@
-(function main () {
+;(function main() {
   /* ----------------------------- CONFIG ----------------------------- */
   const apiUrl = 'https://www.bitstamp.net/api/ticker/'
   const updateFrequencyInMs = 30000 // exchange rate updated every 30s
   /* ------------------------------------------------------------------ */
 
   let rate = {
-    current: 0
+    current: 0,
   }
 
   const getRate = () => {
-    fetch(apiUrl)
-    .then(function (response) {
-      return response.json()
-    }).then(function (json) {
-      rate.current = json.last
-      displayRate(rate.current)
-    }).catch(function (error) {
-      console.log(error)
-    })
+    fetch(apiUrl, { method: 'POST' })
+      .then(response => response.json())
+      .then(json => {
+        rate.current = json.last
+        displayRate(rate.current)
+      })
+      .catch(error => console.error(error))
   }
 
   getRate()
@@ -28,8 +26,8 @@
     getRate()
   }, updateFrequencyInMs)
 
-  const displayRate = (currentRate) => {
-    document.querySelector('.rate').innerHTML = currentRate
+  const displayRate = currentRate => {
+    document.querySelector('.rate').textContent = currentRate
     removeOverlay()
     overlayAlreadyRemoved = true
   }
@@ -41,12 +39,9 @@
     }
   }
 
-  // register service worker
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker
       .register('service-worker.js')
-      .then(function () {
-        console.log('Service Worker Registered')
-      })
+      .then(() => console.log('Service Worker Registered'))
   }
 })()
