@@ -40,7 +40,8 @@ body {
   margin-bottom: 5px;
 }
 
-.rate, .header {
+.rate,
+.header {
   font-size: 3.5em;
 }
 
@@ -57,13 +58,16 @@ a:hover {
   margin-top: 75px;
 }
 
-a, .code-link {
+a,
+.code-link {
   text-decoration: none;
   color: #fff;
 }
 
 @keyframes spinner {
-  to {transform: rotate(360deg);}
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .spinner:before {
@@ -80,7 +84,7 @@ a, .code-link {
   border-radius: 50%;
   border: 2px solid rgba(255, 255, 255, 0.8);
   border-top-color: #333;
-  animation: spinner .6s linear infinite;
+  animation: spinner 0.6s linear infinite;
 }
 
 #overlay {
